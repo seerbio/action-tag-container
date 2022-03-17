@@ -13,7 +13,7 @@ PUSH_TAGS=${PUSH_TAGS:=''}
 # Get the latest build tag pointing at the current commit.
 # Need to use \K for lookbehind (discards the match up to that point for the -o capture).
 # || true to unconditionally succeed; this way we can check and log a message next.
-CONTAINER_TAG=$(git tag --points-at | grep -Po "^$CONTAINER/\Kbuild-\d+.+$" | sort -Vr | head -n 1 || true)
+CONTAINER_TAG=$(git tag --points-at | grep -Po "^$CONTAINER/\Kbuild-\d+.*$" | sort -Vr | head -n 1 || true)
 
 [[ -z "$CONTAINER_TAG" ]] && { echo 'Did not find any build tag pointing at HEAD'; exit 1; }
 echo "Got CONTAINER_TAG=$CONTAINER_TAG"
