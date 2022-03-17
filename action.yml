@@ -1,0 +1,32 @@
+name: "Tag Container Image"
+description: "Tag an accepted container image with a semantic version."
+author: "Seth Just <sjust@seer.bio>"
+inputs:
+  container:
+    description: "The container image name"
+    required: true
+  repository:
+    description: "The URI of the repository to which the container image will be deployed."
+    required: true
+  version:
+    description: "The semantic version with which the container image and commit will be tagged."
+    required: true
+  addl_tags:
+    description: "Additional space-delimited tags to apply to the container image (default: \"latest\")."
+    required: false
+    default: "latest"
+runs:
+  using: "composite"
+  steps:
+    - name: "Fetch Git tags"
+      run: git fetch --prune --unshallow --tags --force
+      shell: bash
+    - name: Tag container
+      env:
+        CONTAINER: ${{ inputs.container }}
+        REPOSITORY: ${{ inputs.repository }}
+        VERSION: ${{ inputs.version }}
+        ADDL_TAGS: ${{ inputs.addl_tags }}
+        PUSH_TAGS: "true"
+      run: ./tag_container.sh "$VERSION" "$ADDL_TAGS"
+      shell: bash
