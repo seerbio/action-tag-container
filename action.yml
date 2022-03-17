@@ -28,5 +28,5 @@ runs:
         VERSION: ${{ inputs.version }}
         ADDL_TAGS: ${{ inputs.addl_tags }}
         PUSH_TAGS: "true"
-      run: ./tag_container.sh "$VERSION" "$ADDL_TAGS"
+      run: $GITHUB_ACTION_PATH/tag_container.sh "$VERSION" "$ADDL_TAGS"
       shell: bash
