@@ -28,7 +28,7 @@ MINVER=$(grep -Po '^.+?\..+?(?=\..+)' <<< "$VERSION") \
 
 # Tag both the image and the commit with the semantic version.
 # We apply the Git tag _first_ to fail fast if it already exists.
-echo "Tagging $REPOSITORY/$CONTAINER:$CONTAINER_TAG as $CONTAINER:$TAG"
+echo "Tagging $REPOSITORY/$CONTAINER:$CONTAINER_TAG as $CONTAINER:$VERSION"
 
 ([[ -z "$PUSH_TAGS" ]] && echo 'Skipping (no $PUSH_TAGS)') \
   || ( \
