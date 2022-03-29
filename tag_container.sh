@@ -26,6 +26,10 @@ MAJVER=$(grep -Po '^.+?(?=\..+)' <<< "$VERSION") \
 MINVER=$(grep -Po '^.+?\..+?(?=\..+)' <<< "$VERSION") \
   || (echo "Could not parse minor version from $VERSION" && exit 1)
 
+
+# Log into the repository so we can push to it
+aws ecr get-login-password | docker login --username AWS --password-stdin $REPOSITORY
+
 # Tag both the image and the commit with the semantic version.
 # We apply the Git tag _first_ to fail fast if it already exists.
 echo "Tagging $REPOSITORY/$CONTAINER:$CONTAINER_TAG as $CONTAINER:$VERSION"
