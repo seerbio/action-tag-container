@@ -19,7 +19,7 @@ runs:
   using: "composite"
   steps:
     - name: "Fetch Git tags"
-      run: git fetch --prune --unshallow --tags --force
+      run: git fetch --tags --prune --prune-tags --unshallow --force
       shell: bash
     - name: Tag container
       env:
